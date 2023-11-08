@@ -1,0 +1,15 @@
+{
+	"author": "OCB Share party bill",
+	"name": "ocb-share-party-bill",
+	"version": "1.0.0",
+	"type": "miniapp",
+	"description": "OCB Share party bill miniapplication",
+	"dependencies": [
+		{
+			"name": "ocb-shared",
+			"version": "1.0.1"
+		}
+	],
+	"main": "ocbSharePartyBillMiniapp.js",
+	"namespace": "ocb"
+}

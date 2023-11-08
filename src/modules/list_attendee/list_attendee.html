@@ -1,0 +1,137 @@
+<rb-content-view class="rb-content-view--solid transactions_list">
+  <div class="full_width_header">
+    <bd-header style="padding-right: 6px;">{{::"foreigncurrencies.label.transaction.searchSellTransaction"|translate}}</bd-header>
+  </div>
+
+  <rb-search-container table="table" rb-model="searchModel" class="acc-history-filter ">
+    <div class="search_in_list_transaction_foreign_currency">
+      <div class="dropdownlist_area_in_search">
+        <rb-search-row>
+          <bd-item-property label="{{::'foreigncurrencies.label.transaction.transactionType'|translate}}" class="account-select">
+            <ui-select ng-model="table.tableConfig.selectedTransactionType"
+                       theme="bootstrap"
+                       reset-search-input="false"
+                       ng-disabled="fixedAccountSelection"
+                       on-select=""
+                       class="iconized"
+                       style="width: 400px !important; max-width: 400px; display: inline-block !important;"
+                       required>
+              <ui-select-match placeholder="{{::'foreigncurrencies.label.transaction.transactionType'|translate}}">
+                <div class="select-account__row__cell account-desc">
+                  <rb-account-responsive-line rb-allow-long-nrb="true"
+                                              rb-account-name="$select.selected.id"
+                                              rb-account-nrb="$select.selected.key"></rb-account-responsive-line>
+                </div>
+              </ui-select-match>
+              <ui-select-choices repeat="item in listTransactionTypeSearch track by $index">
+                <div class="select-account__row">
+                  <div class="select-account__row__cell account-desc">
+                    <div class="rb-account-select__account-desc-row">
+                      <span class="rb-account-select__account-desc-row__nrb">
+                                     {{item.key}}
+                                    </span>
+                    </div>
+                  </div>
+                </div>
+              </ui-select-choices>
+            </ui-select>
+
+          </bd-item-property>
+        </rb-search-row>
+        <rb-search-row>
+          <bd-item-property label="{{::'foreigncurrencies.label.transaction.transactionCurrency'|translate}}" class="account-select">
+            <ui-select ng-model="table.tableConfig.selectedCurrency"
+                       theme="bootstrap"
+                       reset-search-input="false"
+                       ng-disabled="fixedAccountSelection"
+                       on-select=""
+                       class="iconized"
+                       style="width: 400px !important; max-width: 400px; display: inline-block;"
+                       required>
+              <ui-select-match placeholder="{{::'foreigncurrencies.label.transaction.transactionCurrency'|translate}}">
+                <!--<div class="select-account__row__cell account-icon" ng-if="$select.selected.customerData.iconSrc">-->
+                  <!--<img height="25px" width="25px" ng-if="$select.selected.customerData.iconSrc" ng-src="{{$select.selected.customerData.iconSrc}}"-->
+                       <!--class="select-account__icon"/></div>-->
+                <div class="select-account__row__cell account-desc">
+                  <rb-account-responsive-line rb-allow-long-nrb="true"
+                                              rb-account-name="$select.selected"
+                                              rb-account-nrb="$select.selected"></rb-account-responsive-line>
+                </div>
+              </ui-select-match>
+              <ui-select-choices repeat="item in listCurrency track by $index">
+                <div class="select-account__row">
+                  <div class="select-account__row__cell account-desc">
+                    <div class="rb-account-select__account-desc-row">
+                      <span class="rb-account-select__account-desc-row__nrb">
+                                      {{item}}
+                                    </span>
+                    </div>
+                  </div>
+                </div>
+              </ui-select-choices>
+            </ui-select>
+
+          </bd-item-property>
+        </rb-search-row>
+      </div>
+      <div class="datepicker_area_in_search">
+          <div>
+            <div class="datepicker_label" style="margin-bottom: 10px;margin-top: 5px;">{{::"foreigncurrencies.label.transaction.fromDate"|translate}}</div>
+            <div class="radio-option__value">
+              <div class="radio-option__input-wrapper radio-option__input-wrapper--medium">
+                <rb-datepicker ng-model="table.tableConfig.dateRange.dateFrom" name="dateFrom"
+                               ng-model-options="{ allowInvalid: true }"
+                               rb-name="dateFromInput"
+                               rb-required="drawer.control.advancedSearchExpanded && period.control.model.type === 'dateRange'"
+                               rb-label="{{ ::'account.transactions.select.filter.date.from.label'|translate }}"
+                               ng-required="drawer.control.advancedSearchExpanded && period.control.model.type === 'dateRange'"
+                               max-search-date
+                               less-than-date="{{drawer.control.advancedSearchExpanded && period.control.model.type === 'dateRange' ? rbModelTo : ''}}"></rb-datepicker>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="datepicker_label" style="margin-bottom: 10px;margin-top: 5px;">{{::"foreigncurrencies.label.transaction.toDate"|translate}}</div>
+            <div class="radio-option__value">
+              <div class="radio-option__input-wrapper radio-option__input-wrapper--medium">
+                <rb-datepicker ng-model="table.tableConfig.dateRange.dateTo" name="dateTo"
+                               ng-model-options="{ allowInvalid: true }"
+                               rb-name="dateFromInput"
+                               rb-required="drawer.control.advancedSearchExpanded && period.control.model.type === 'dateRange'"
+                               rb-label="{{ ::'account.transactions.select.filter.date.to.label'|translate }}"
+                               ng-required="drawer.control.advancedSearchExpanded && period.control.model.type === 'dateRange'"
+                               max-search-date
+                               less-than-date="{{drawer.control.advancedSearchExpanded && period.control.model.type === 'dateRange' ? rbModelTo : ''}}"></rb-datepicker>
+              </div>
+            </div>
+          </div>
+
+        <div style="padding-top: 44px">
+          <bd-button class="bd-form-footer__button bd-form-footer__button--positive bd-button__tertiary"
+                     ng-click="searchData()">
+            {{::'account.transactions.select.filter.button.applyFilter'|translate}}
+          </bd-button>
+        </div>
+      </div>
+    </div>
+  </rb-search-container>
+
+  <bd-table
+      bd-type="typeF8"
+      bd-table-params="table.tableConfig"
+      bd-table-control="table.tableControl"
+      bd-table-data="table.tableData"
+      bd-table-promise="table.promise"
+      bd-table-meta="{ 'first': {'title': '##foreigncurrencies.label.transaction.transactionDate', 'data': 'transactionDate'}, 'second': {'title': '##foreigncurrencies.label.transaction.transactionCode', 'data': 'transactionCode'}, 'third': {'title': '##foreigncurrencies.label.transaction.sellingAmount', 'data': 'sellingAmount'}, 'fourth': {'title': '##foreigncurrencies.label.transaction.currency', 'data': 'currency'}, 'fifth': {'title': '##foreigncurrencies.label.transaction.rate', 'data': 'rate'}, 'sixth': {'title': '##foreigncurrencies.label.transaction.receivedMoney', 'data': 'receivedMoney'}, 'seventh': {'title': '##foreigncurrencies.label.transaction.receivedAccount', 'data': 'receivedAccount'}, 'eighth': {'title': '##foreigncurrencies.label.transaction.transactionStatus', 'data': 'transactionStatus'}}">
+
+    <div bd-table-footer>
+      <bd-table-pagination></bd-table-pagination>
+    </div>
+  </bd-table>
+
+
+  <rb-note rb-slot-name="ACCOUNT_SUMMARY" rb-target-type="CURRENT_USER">
+    <rb-note-info></rb-note-info>
+  </rb-note>
+
+</rb-content-view>

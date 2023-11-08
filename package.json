@@ -1,0 +1,15 @@
+{
+	"version": "0.0.1",
+	"name": "@acp/ocb-foreign-currencies",
+	"repository": {
+		"type": "git",
+		"url": "http://ocbgit.ocb.vn/OMNIRB/cbp-ocb-foreign-currencies-wc.git"
+	},
+	"keywords": [
+		"ocb",
+		"foreigncurrencies"
+	],
+	"dependencies": {
+		"@acp/cbp-platform-web-component": "2.1.4"
+	}
+}
